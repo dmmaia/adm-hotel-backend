@@ -2,9 +2,14 @@ import { Apartment } from '../models/Apartment';
 
 import { ApartmentsRepository } from '../repositories/ApartmentsRepository';
 
+interface Occupation{
+  numberOfAdults: Number;
+  numberOfChildren: Number;
+}
+
 interface Request {
   name: String;
-  maxOccupation: Number;
+  maxOccupation: Occupation;
 }
 
 class CreateApartmentService {

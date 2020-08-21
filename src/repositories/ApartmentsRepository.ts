@@ -1,8 +1,13 @@
 import { Apartment } from '../models/Apartment';
 
+interface Occupation{
+  numberOfAdults: Number;
+  numberOfChildren: Number;
+}
+
 interface CreateApartmentDTO {
   name: String;
-  maxOccupation: Number;
+  maxOccupation: Occupation;
 }
 
 class ApartmentsRepository{
