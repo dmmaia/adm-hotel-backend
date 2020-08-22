@@ -27,7 +27,7 @@ apartmentsRouter.post('/', (request, response) =>{
 
       return response.json(apartment);
     }catch(err){
-      return response.status(400).json({error: "Something is wrong"})
+      return response.status(400).json({error: "Something was wrong"})
     }
 });
 

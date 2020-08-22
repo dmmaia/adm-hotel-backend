@@ -28,4 +28,4 @@ class Booking {
   }
 }
 
-export { Booking }
+export { Booking, Occupation }

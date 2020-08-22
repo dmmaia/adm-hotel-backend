@@ -14,4 +14,4 @@ class Apartment{
   }
 }
 
-export { Apartment };
+export { Apartment, Occupation };

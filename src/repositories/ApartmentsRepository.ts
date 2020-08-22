@@ -1,9 +1,4 @@
-import { Apartment } from '../models/Apartment';
-
-interface Occupation{
-  numberOfAdults: Number;
-  numberOfChildren: Number;
-}
+import { Apartment, Occupation } from '../models/Apartment';
 
 interface CreateApartmentDTO {
   name: String;

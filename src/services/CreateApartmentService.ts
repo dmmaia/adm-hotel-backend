@@ -1,11 +1,6 @@
-import { Apartment } from '../models/Apartment';
+import { Apartment, Occupation } from '../models/Apartment';
 
 import { ApartmentsRepository } from '../repositories/ApartmentsRepository';
-
-interface Occupation{
-  numberOfAdults: Number;
-  numberOfChildren: Number;
-}
 
 interface Request {
   name: String;
