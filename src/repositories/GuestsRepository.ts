@@ -1,4 +1,5 @@
 import { Guest } from '../models/Guest';
+import Nedb from 'nedb';
 
 interface CreateGuestDTO {
   name: String;
@@ -7,20 +8,23 @@ interface CreateGuestDTO {
 }
 
 class GuestsRepository{
-  private guests: Guest[];
+  private dbGuests: Nedb<Guest>;
 
   constructor(){
-    this.guests = [];
+    this.dbGuests = new Nedb({
+      filename: 'db/guests.db',
+      autoload: true
+    })
   }
 
-  public all(): Guest[]{
-    return this.guests;
+  public all(){
+    return this.dbGuests.getAllData();
   }
 
   public create({name, cpf, email}: CreateGuestDTO): Guest{
     const guest = new Guest({name, cpf, email});
 
-    this.guests.push(guest);
+    this.dbGuests.insert(guest);
 
     return guest;
   }

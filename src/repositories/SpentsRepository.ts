@@ -1,4 +1,5 @@
 import { Spent } from '../models/Spent';
+import Nedb from 'nedb';
 
 interface CreateProductDTO {
   product: String;
@@ -7,20 +8,23 @@ interface CreateProductDTO {
 }
 
 class SpentsRepository {
-  private spents: Spent[];
+  private dbSpents: Nedb<Spent>;
 
   constructor(){
-    this.spents = [];
+    this.dbSpents = new Nedb({
+      filename: 'db/spents.db',
+      autoload: true
+    })
   }
 
-  public all(): Spent[]{
-    return this.spents;
+  public all(){
+    return this.dbSpents.getAllData();
   }
 
   public create({product, booking, quantity}: CreateProductDTO): Spent{
     const spent = new Spent({product, booking, quantity});
 
-    this.spents.push(spent);
+    this.dbSpents.insert(spent);
 
     return spent;
   }

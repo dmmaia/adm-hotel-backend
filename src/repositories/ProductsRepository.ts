@@ -1,4 +1,5 @@
 import { Product } from '../models/Product';
+import Nedb from 'nedb';
 
 interface CreateProductDTO {
   name: String;
@@ -6,20 +7,23 @@ interface CreateProductDTO {
 }
 
 class ProductsRepossitory {
-  private products: Product[];
+  private dbProducts: Nedb<Product>;
 
   constructor(){
-    this.products = [];
+    this.dbProducts = new Nedb({
+      filename: 'db/products.db',
+      autoload: true
+    })
   }
 
-  public all(): Product[]{
-    return this.products;
+  public all(){
+    return this.dbProducts.getAllData();
   }
 
   public create({name, price}: CreateProductDTO): Product{
     const product = new Product({name, price});
 
-    this.products.push(product);
+    this.dbProducts.insert(product);
 
     return product;
   }

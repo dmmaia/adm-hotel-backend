@@ -1,4 +1,5 @@
 import { Booking, Occupation} from '../models/Booking';
+import Nedb from 'nedb';
 
 
 interface CreateBookingDTO {
@@ -10,20 +11,23 @@ interface CreateBookingDTO {
 }
 
 class BookingsRepository {
-  private bookings: Booking[];
+  private dbBookings: Nedb<Booking>;
 
   constructor(){
-    this.bookings = [];
+    this.dbBookings = new Nedb({
+      filename: 'db/bookings.db',
+      autoload: true
+    })
   }
 
-  public all(): Booking[]{
-    return this.bookings;
+  public all(){
+    return this.dbBookings.getAllData();
   }
 
   public create({apartment, guest, occupation, price, date}:CreateBookingDTO):Booking{
     const booking = new Booking({apartment, guest, occupation, price, date});
 
-    this.bookings.push(booking);
+    this.dbBookings.insert(booking)
 
     return booking;
   }

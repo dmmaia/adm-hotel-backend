@@ -1,4 +1,5 @@
 import { Apartment, Occupation } from '../models/Apartment';
+import Nedb from 'nedb';
 
 interface CreateApartmentDTO {
   name: String;
@@ -6,20 +7,23 @@ interface CreateApartmentDTO {
 }
 
 class ApartmentsRepository{
-  private apartments: Apartment[];
+  private dbApartments : Nedb<Apartment>;
 
   constructor(){
-    this.apartments = [];
+    this.dbApartments = new Nedb({
+      filename: 'db/apartments.db',
+      autoload: true
+    })
   }
 
-  public all(): Apartment[]{
-    return this.apartments;
+  public all(){
+    return this.dbApartments.getAllData();
   }
 
   public create({name, maxOccupation}: CreateApartmentDTO): Apartment{
     const apartment = new Apartment({name, maxOccupation});
 
-    this.apartments.push(apartment);
+    this.dbApartments.insert(apartment)
 
     return apartment;
   }
