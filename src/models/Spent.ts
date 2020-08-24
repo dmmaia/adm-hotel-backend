@@ -9,7 +9,7 @@ class Spent{
 
   quantity: Number;
 
-  constructor({product, booking, quantity}: Omit<Spent, '_id'>){
+  constructor({product, booking, quantity}: Omit<Spent, "_id">){
     this._id = uuid();
     this.product = product;
     this.booking = booking;
